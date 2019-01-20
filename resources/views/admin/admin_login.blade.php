@@ -1,21 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-    
-<head>
+    <head>
         <title>Matrix Admin</title><meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="stylesheet" href="{{ asset('css/backend_css/bootstrap.min.css') }}" />
-		<link rel="stylesheet" href="{{ asset('css/backend_css/bootstrap-responsive.min.css') }}" />
+    	<link rel="stylesheet" href="{{ asset('css/backend_css/bootstrap.min.css') }}" />
+    	<link rel="stylesheet" href="{{ asset('css/backend_css/bootstrap-responsive.min.css') }}" />
         <link rel="stylesheet" href="{{ asset('css/backend_css/matrix-login.css') }}" />
-        <link href="{{ asset('fonts/backend_fonts/font-awesome/css/font-awesome.css') }}" rel="stylesheet" />
-		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
-
+        <link href="{{ asset('fonts/backend_fonts/css/font-awesome.css') }}" rel="stylesheet" />
+    	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
     </head>
     <body>
         <div id="loginbox">            
-            <form id="loginform" class="form-vertical" method="post" action="{{ route('admin' )}}">
+                @foreach (['danger', 'warning', 'success', 'info'] as $msg)
+                    @if(Session::has('alert-' . $msg))
+                        <div class="alert alert-{{ $msg }} alert-block">
+                            <button type="button" class="close" data-dismiss="alert">x</button>
+                            <strong>{{ Session::get('alert-' . $msg) }}</strong>
+                        </div>
+                    @endif
+                @endforeach
+            <form id="loginform" class="form-vertical" method="post" action="{{ route('admin.login' )}}">
                 @csrf
-				<div class="control-group normal_text"> <h3><img src="{{ asset('images/backend_images/logo.png') }}" alt="Logo" /></h3></div>
+    			<div class="control-group normal_text"> <h3><img src="{{ asset('images/backend_images/logo.png') }}" alt="Logo" /></h3></div>
                 <div class="control-group">
                     <div class="controls">
                         <div class="main_input_box">
@@ -36,8 +42,8 @@
                 </div>
             </form>
             <form id="recoverform" action="#" class="form-vertical">
-				<p class="normal_text">Enter your e-mail address below and we will send you instructions how to recover a password.</p>
-				
+    			<p class="normal_text">Enter your e-mail address below and we will send you instructions how to recover a password.</p>
+    			
                     <div class="controls">
                         <div class="main_input_box">
                             <span class="add-on bg_lo"><i class="icon-envelope"></i></span><input type="text" placeholder="E-mail address" />
@@ -52,7 +58,7 @@
         </div>
         
         <script src="{{ asset('js/backend_js/jquery.min.js') }}"></script>  
-        <script src="{{ asset('js/backend_js/matrix.login.js') }}"></script> 
+        <script src="{{ asset('js/backend_js/matrix.login.js') }}"></script>
+        <script src="{{ asset('js/backend_js/bootstrap.min.js') }}"></script>
     </body>
-
 </html>
