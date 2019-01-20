@@ -15,9 +15,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
-Route::match(['get', 'post'], '/admin', 'AdminController@login')->name('admin');
+Route::match(['get', 'post'], '/admin/login', 'AdminController@login')->name('admin.login');
 
 Auth::routes();
+
+Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => ['auth']], function() {
+	Route::get('logout', 'AdminController@logout')->name('logout');
+	Route::get('dashboard', 'AdminController@dashboard')->name('dashboard');
+});
 
 Route::get('/home', 'HomeController@index')->name('home');
