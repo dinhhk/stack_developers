@@ -1,6 +1,27 @@
 
 $(document).ready(function(){
 	
+	$('#new_password').click(function() {
+		var currentPassword = $('#current_password').val();
+		var checkPassworUrl = $('#password_validate').data('chkpwd-url');
+
+		$.ajax({
+			type: "post",
+			url: checkPassworUrl,
+			data: {current_password: currentPassword},
+			success: function(response) {
+				if(response == 'true') {
+					$('#error_current_password').html('<font color="green">Current password is correct.</font>');
+				} else {
+					$('#error_current_password').html('<font color="red">Current password is in-correct.</font>');
+				}
+			},	
+			error: function() {
+				alert('Error!!!')
+			}
+		});
+	});
+
 	$('input[type=checkbox],input[type=radio],input[type=file]').uniform();
 	
 	$('select').select2();
@@ -63,16 +84,16 @@ $(document).ready(function(){
 	
 	$("#password_validate").validate({
 		rules:{
-			pwd:{
+			new_password:{
 				required: true,
 				minlength:6,
 				maxlength:20
 			},
-			pwd2:{
+			confirm_password:{
 				required:true,
 				minlength:6,
 				maxlength:20,
-				equalTo:"#pwd"
+				equalTo:"#new_password"
 			}
 		},
 		errorClass: "help-inline",

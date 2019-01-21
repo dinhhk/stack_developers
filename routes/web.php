@@ -21,6 +21,8 @@ Auth::routes();
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => ['auth']], function() {
 	Route::get('logout', 'AdminController@logout')->name('logout');
+	Route::get('settings', 'AdminController@settings')->name('settings');
+	Route::post('check-password', 'AdminController@checkPassword')->name('check-password');
 	Route::get('dashboard', 'AdminController@dashboard')->name('dashboard');
 });
 

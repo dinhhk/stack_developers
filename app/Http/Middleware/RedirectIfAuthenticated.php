@@ -20,7 +20,7 @@ class RedirectIfAuthenticated
         if (Auth::guard($guard)->check()) {
             return redirect('/home');
         } else {
-            return redirect()->route('admin.login')->with('alert-error', 'Please login to access.');
+            return redirect()->route('admin.login')->with('alert-danger', 'Please login to access.');
         }
 
         return $next($request);
